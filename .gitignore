@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.angular/
+coverage/
+.tmp/
+*.log
+.env
+.env.*
+!.env.example
+.DS_Store
+.idea/
+.vscode/
+screenshots/*.png
+apps/api/public/
