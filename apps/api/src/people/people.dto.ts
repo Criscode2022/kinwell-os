@@ -22,8 +22,23 @@ export class CreatePersonDto {
   @IsOptional() @IsString() color?: string;
 }
 
-export class UpdatePersonDto extends CreatePersonDto {
-  @IsOptional() @IsString() @MinLength(1) override name?: string;
+export class UpdatePersonDto {
+  @IsOptional() @IsString() @MinLength(1) name?: string;
+  @IsOptional() @IsString() preferredName?: string;
+  @IsOptional() @IsString() dateOfBirth?: string;
+  @IsOptional() @IsString() sex?: string;
+  @IsOptional() @IsString() relationship?: string;
+  @IsOptional() @IsString() conditions?: string;
+  @IsOptional() @IsString() allergies?: string;
+  @IsOptional() @IsString() bloodType?: string;
+  @IsOptional() @IsString() physician?: string;
+  @IsOptional() @IsString() physicianPhone?: string;
+  @IsOptional() @IsString() pharmacy?: string;
+  @IsOptional() @IsString() pharmacyPhone?: string;
+  @IsOptional() @IsString() address?: string;
+  @IsOptional() @IsString() city?: string;
+  @IsOptional() @IsString() notes?: string;
+  @IsOptional() @IsString() color?: string;
 }
 
 export class CreateContactDto {
