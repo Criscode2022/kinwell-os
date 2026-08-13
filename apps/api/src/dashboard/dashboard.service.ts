@@ -6,7 +6,7 @@ import { MedicationsService } from '../medications/medications.service';
 export class DashboardService {
   constructor(
     private readonly db: DatabaseService,
-    private readonly meds = new MedicationsService(db),
+    private readonly meds: MedicationsService,
   ) {}
 
   async summary(userId: string) {
