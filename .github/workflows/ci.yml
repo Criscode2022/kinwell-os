@@ -14,10 +14,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
-          cache-dependency-path: |
-            apps/api/package-lock.json
-            apps/web/package-lock.json
       - name: Install API
         run: npm --prefix apps/api install
       - name: Install web
@@ -27,8 +23,7 @@ jobs:
       - name: Start server
         run: |
           npm start &
-          echo $! > /tmp/kinwell.pid
-          for i in $(seq 1 40); do
+          for i in $(seq 1 45); do
             if curl -sf http://127.0.0.1:8080/api/health >/dev/null; then
               echo "server up"
               exit 0
