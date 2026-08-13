@@ -2,7 +2,9 @@
 
 **The care book your family actually keeps.**
 
-Kinwell is a production-ready family caregiver OS. It replaces the WhatsApp thread, the kitchen notepad, and the blister-pack guesswork with one shared book: medications and adherence, clinic days, household tasks, a daily journal, and a printable emergency card.
+**Repository:** [https://github.com/Criscode2022/kinwell-os](https://github.com/Criscode2022/kinwell-os)
+
+Kinwell is a production family caregiver OS. It replaces the WhatsApp thread, the kitchen notepad, and the blister-pack guesswork with one shared book: medications and adherence, clinic days, household tasks, a daily journal, and a printable emergency card.
 
 Stack: **Angular 19** · **NestJS 11** · **Neon Postgres** · **Tailwind CSS**
 
@@ -13,7 +15,7 @@ email:    demo@kinwell.app
 password: demo1234
 ```
 
-The demo household is Elena Vargas coordinating care for her mother Carmen (Valencia) and father-in-law Tomás (Madrid) — real regimens, labs, refills, and journal notes.
+The demo household is Elena Vargas coordinating care for her mother Carmen (Valencia) and father-in-law Tomas (Madrid).
 
 ## What it does
 
@@ -23,7 +25,7 @@ The demo household is Elena Vargas coordinating care for her mother Carmen (Vale
 | People | Conditions, allergies, physician, pharmacy, emergency contacts |
 | Medications | Frequency, times, with-food, stock and refill tracking |
 | Appointments | GP / specialist / lab with prep notes |
-| Tasks | Pharmacy, transport, paperwork, home — assigned to siblings |
+| Tasks | Pharmacy, transport, paperwork, home - assigned to siblings |
 | Journal | Mood, sleep, appetite, and the day's story |
 | Emergency card | Printable one-pager for a bag or fridge |
 
@@ -36,7 +38,7 @@ npm run build
 npm start
 ```
 
-The API listens on `0.0.0.0:8080` and serves the Angular build. Open [http://localhost:8080](http://localhost:8080).
+The API listens on port 8080 and serves the Angular build.
 
 Dev mode (Angular HMR + Nest watch):
 
@@ -59,29 +61,34 @@ HOST=0.0.0.0
 
 ## API
 
-Swagger UI: `/api/docs`
-
-Health: `GET /api/health`
-
-Auth is JWT bearer. All domain routes (`/api/people`, `/api/medications`, `/api/doses`, `/api/appointments`, `/api/tasks`, `/api/journal`, `/api/dashboard`) require a token.
+- Swagger UI: `/api/docs`
+- Health: `GET /api/health`
+- Auth is JWT bearer. Domain routes require a token.
 
 ## Tests
 
 ```bash
-npm start &          # after npm run build
-npm run test:api     # end-to-end smoke against the running server
+npm start &
+npm run test:api
 ```
 
-CI (GitHub Actions) installs, builds both apps, boots the server on PGLite, and runs the same smoke suite on every push.
+CI installs, builds both apps, boots the server on PGLite, and runs the smoke suite on every push.
 
 ## Deploy
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Criscode2022/kinwell-os)
+
 1. Create a Neon project and copy the pooled connection string.
 2. Set `DATABASE_URL` and `JWT_SECRET` on the host.
-3. `npm --prefix apps/api install && npm --prefix apps/web install && npm run build && npm start`
+3. One-click **Render** via `render.yaml`, or Docker:
 
-Any Node 20+ host works (Railway, Render, Fly, a VPS). `vercel.json` is included so the Angular shell can be hosted on Vercel; the Nest API should run as a long-lived Node process against Neon (serverless PGLite is ephemeral).
+```bash
+docker build -t kinwell-os .
+docker run -p 8080:8080 -e JWT_SECRET=change-me kinwell-os
+```
+
+Any Node 20+ host works (Railway, Render, Fly, a VPS). Nest should run as a long-lived Node process against Neon.
 
 ## License
 
-MIT © Cristian Damil García
+MIT (c) Cristian Damil Garcia
