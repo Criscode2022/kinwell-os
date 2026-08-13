@@ -17,7 +17,7 @@ import { labelize, statusClass } from '../../core/format';
           <p class="text-sm font-medium text-bottle-700">Today</p>
           <h1 class="font-display text-3xl font-semibold text-ink-900">Good day, {{ firstName }}</h1>
           <p class="mt-1 text-sm text-ink-500">Doses, clinic days, and open care tasks.
-            <span class="ml-1 rounded-full bg-ink-100 px-2 py-0.5 text-xs font-semibold text-ink-600">DB: {{ data()?.dbSource || '…' }}</span>
+            <span class="ml-1 rounded-full bg-ink-100 px-2 py-0.5 text-xs font-semibold text-ink-600">DB: {{ data()?.dbSource || '...' }}</span>
           </p>
         </div>
         <div class="flex flex-wrap gap-2">
@@ -30,7 +30,8 @@ import { labelize, statusClass } from '../../core/format';
         <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           @for (i of [1,2,3,4]; track i) { <div class="card h-28 animate-pulse bg-ink-100/60"></div> }
         </div>
-      } @else if (data(); as d) {
+      } @else {
+        @if (data(); as d) {
         <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <div class="card p-5">
             <div class="text-xs font-semibold uppercase tracking-wide text-ink-500">7-day adherence</div>
@@ -57,7 +58,7 @@ import { labelize, statusClass } from '../../core/format';
         <div class="grid gap-4 lg:grid-cols-5">
           <div class="card overflow-hidden lg:col-span-3">
             <div class="flex items-center justify-between border-b border-ink-100 px-5 py-4">
-              <h2 class="font-display text-lg font-semibold text-ink-900">Today’s doses</h2>
+              <h2 class="font-display text-lg font-semibold text-ink-900">Today's doses</h2>
               <a routerLink="/app/medications" class="text-xs font-semibold text-bottle-700">All meds</a>
             </div>
             <ul class="divide-y divide-ink-100">
@@ -109,6 +110,7 @@ import { labelize, statusClass } from '../../core/format';
             </div>
           </div>
         </div>
+        }
       }
     </div>
   `,
