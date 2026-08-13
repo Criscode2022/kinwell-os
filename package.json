@@ -1,0 +1,21 @@
+{
+  "name": "kinwell-os",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Kinwell — family caregiver OS (Angular + NestJS + Neon + Tailwind)",
+  "scripts": {
+    "dev:api": "npm --prefix apps/api run start:dev",
+    "dev:web": "npm --prefix apps/web run start",
+    "dev": "node scripts/dev.mjs",
+    "build:api": "npm --prefix apps/api run build",
+    "build:web": "npm --prefix apps/web run build",
+    "build": "npm run build:api && npm run build:web",
+    "start": "node scripts/start-prod.mjs",
+    "start:prod": "node scripts/start-prod.mjs",
+    "test:api": "node scripts/api-smoke.mjs",
+    "typecheck": "npm --prefix apps/api run build"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
