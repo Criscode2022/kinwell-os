@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-and-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            apps/api/package-lock.json
+            apps/web/package-lock.json
+      - name: Install API
+        run: npm --prefix apps/api install
+      - name: Install web
+        run: npm --prefix apps/web install
+      - name: Build
+        run: npm run build
+      - name: Start server
+        run: |
+          npm start &
+          echo $! > /tmp/kinwell.pid
+          for i in $(seq 1 40); do
+            if curl -sf http://127.0.0.1:8080/api/health >/dev/null; then
+              echo "server up"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "server failed to start"
+          exit 1
+      - name: API smoke
+        run: node scripts/api-smoke.mjs http://127.0.0.1:8080
