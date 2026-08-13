@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: kinwell-os
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm --prefix apps/api install && npm --prefix apps/web install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: PORT
+        value: "8080"
+      - key: HOST
+        value: "0.0.0.0"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false
